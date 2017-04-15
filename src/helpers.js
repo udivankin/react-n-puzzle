@@ -94,8 +94,7 @@ export function generateTiles(cols = DEFAULT_COLS, rows = DEFAULT_ROWS) {
 export function shuffleBoard(state) {
   let nextState = { ...state };
 
-  for (let i = 0; i < 3; i++) {
-  //for (let i = 0; i < Math.pow(nextState.rows * nextState.cols, 2); i++) {
+  for (let i = 0; i < Math.pow(nextState.rows * nextState.cols, 2); i++) {
     nextState = { ...state, tiles: randomMove(nextState) };
   }
 
