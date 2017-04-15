@@ -1,5 +1,6 @@
 import shuffle from 'lodash.shuffle';
 
+const completedBoardLayouts = {};
 export const DEFAULT_COLS = 4;
 export const DEFAULT_ROWS = 4;
 
@@ -68,10 +69,14 @@ export function randomMove(state) {
 }
 
 export function generateTiles(cols = DEFAULT_COLS, rows = DEFAULT_ROWS) {
+  if (`${cols}_${rows}` in completedBoardLayouts) {
+    return completedBoardLayouts[`${cols}_${rows}`];
+  }
+
   const tiles = {};
   
-  for (var y = 0; y < rows; y++) {
-    for (var x = 0; x < cols; x++) {
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
       const id = Object.keys(tiles).length + 1;
       if (x * y < (cols - 1) * (rows - 1)) { // skip last item
         tiles[id] = { id, x, y };
@@ -81,13 +86,16 @@ export function generateTiles(cols = DEFAULT_COLS, rows = DEFAULT_ROWS) {
     }
   }
 
+  completedBoardLayouts[`${cols}_${rows}`] = tiles;
+
   return tiles;
 }
 
 export function shuffleBoard(state) {
   let nextState = { ...state };
 
-  for (var i = 0; i < Math.pow(nextState.rows * nextState.cols, 2); i++) {
+  for (let i = 0; i < 3; i++) {
+  //for (let i = 0; i < Math.pow(nextState.rows * nextState.cols, 2); i++) {
     nextState = { ...state, tiles: randomMove(nextState) };
   }
 
@@ -96,4 +104,13 @@ export function shuffleBoard(state) {
 
 export function getBoard(state) {
   return Object.values(state.tiles);
+}
+
+export function getIsComlete(state) {
+  const { cols, rows } = state;
+  const completedBoard = completedBoardLayouts[`${cols}_${rows}`];
+
+  return Object.values(state.tiles).every((tile) => (
+    tile.x === completedBoard[tile.id].x && tile.y === completedBoard[tile.id].y
+  ));
 }
