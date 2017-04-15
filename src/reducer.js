@@ -1,5 +1,5 @@
-import { MOVE, BOARD_SIZE_UPDATE } from './actions.js';
-import { DEFAULT_COLS, DEFAULT_ROWS, generateTiles, move } from './helpers.js';
+import { BOARD_SIZE_UPDATE, MOVE, SHUFFLE } from './actions.js';
+import {DEFAULT_COLS, DEFAULT_ROWS, generateTiles, move, shuffleBoard } from './helpers.js';
 
 const initialState = {
   /**
@@ -30,14 +30,14 @@ function updateBoardSize(state, { axis, amount }) {
   cols = cols > 2 ? cols : state.cols;
   rows = rows > 2 ? rows : state.rows;
 
-  return {
+  return shuffleBoard({
     cols,
     rows,
     tiles: generateTiles(cols, rows),
-  }
+  });
 }
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = shuffleBoard(initialState), action) => {
   switch (action.type) {
     case MOVE:
       return {
@@ -48,6 +48,10 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         ...updateBoardSize(state, action),
+      };
+    case SHUFFLE:
+      return {
+        ...shuffleBoard(state),
       };
     default:
       return state;

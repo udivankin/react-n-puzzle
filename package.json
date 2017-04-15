@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "lodash.debounce": "^4.0.8",
+    "lodash.shuffle": "^4.2.0",
     "react": "^15.5.3",
     "react-dom": "^15.5.3",
     "react-redux": "^5.0.4",

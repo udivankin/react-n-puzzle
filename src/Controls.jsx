@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 
-import { updateBoardSize } from './actions';
+import { shuffle, updateBoardSize } from './actions';
 import './Controls.css';
 
-const Controls = ({ cols, rows, tile, updateBoardSize }) => {
+const Controls = ({ cols, rows, tile, shuffle, updateBoardSize }) => {
   const incrementCols = () => updateBoardSize('cols', 1);
   const incrementRows = () => updateBoardSize('rows', 1);
   const decrementCols = () => updateBoardSize('cols', -1);
@@ -24,12 +24,12 @@ const Controls = ({ cols, rows, tile, updateBoardSize }) => {
         <button className="btn btn-outline" title="More columns" onClick={incrementCols}>+</button>
       </div>
       <div className="aside-controls">
-        <button className="btn btn-shuffle" title="Shuffle"></button>
+        <button className="btn btn-shuffle" title="Shuffle" onClick={shuffle}></button>
       </div>
     </div>
   );
 }
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({ updateBoardSize }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({ shuffle, updateBoardSize }, dispatch);
 
 export default connect(null, mapDispatchToProps)(Controls);

@@ -1,9 +1,19 @@
+import shuffle from 'lodash.shuffle';
+
 export const DEFAULT_COLS = 4;
 export const DEFAULT_ROWS = 4;
 
 function getEmptyTile({ tiles }) {
   for (let id in tiles) {
     if (id === 'empty') {
+      return tiles[id];
+    }
+  }
+}
+
+function getTileAt({ tiles }, x, y) {
+  for (let id in tiles) {
+    if (tiles[id].x === x && tiles[id].y === y) {
       return tiles[id];
     }
   }
@@ -16,19 +26,11 @@ function getSiblings(state, targetTile) {
   return [{ x: x - 1, y }, { x, y: y - 1 }, { x: x + 1, y }, { x: x, y: y + 1 }].reduce(
     (result, value) => {
       return (value.x >= 0 && value.x < cols && value.y >= 0 && value.y < rows)
-        ? [...result, value]
+        ? [...result, getTileAt(state, value.x, value.y)]
         : result;
     },
     []
   );
-}
-
-function getTileAt({ tiles }, x, y) {
-  for (let id in tiles) {
-    if (tiles[id].x === x && tiles[id].y === y) {
-      return tiles[id];
-    }
-  }
 }
 
 function getCanExchange(siblings, emptyTile) {
@@ -50,6 +52,21 @@ export function move(state, targetTile) {
   return state.tiles;
 }
 
+export function randomMove(state) {
+  const emptyTile = getEmptyTile(state);
+  const siblings = getSiblings(state, emptyTile);
+  const targetTile = shuffle(siblings).pop();
+  let result;
+
+  Object.values(state.tiles).forEach((tile) => {
+    if (tile.x === targetTile.x && tile.y === targetTile.y) {
+      result = move(state, targetTile);
+    }
+  });
+
+  return result;
+}
+
 export function generateTiles(cols = DEFAULT_COLS, rows = DEFAULT_ROWS) {
   const tiles = {};
   
@@ -65,6 +82,16 @@ export function generateTiles(cols = DEFAULT_COLS, rows = DEFAULT_ROWS) {
   }
 
   return tiles;
+}
+
+export function shuffleBoard(state) {
+  let nextState = { ...state };
+
+  for (var i = 0; i < Math.pow(nextState.rows * nextState.cols, 2); i++) {
+    nextState = { ...state, tiles: randomMove(nextState) };
+  }
+
+  return nextState;
 }
 
 export function getBoard(state) {
