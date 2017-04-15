@@ -1,5 +1,6 @@
 {
   "name": "react-n-puzzle",
+  "homepage": "http://udivankin.github.io/react-n-puzzle/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
