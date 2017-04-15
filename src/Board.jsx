@@ -40,7 +40,11 @@ class Board extends Component {
   };
 
   render() {
-    const { cols, rows, tiles } = this.props;
+    const { cols, isCompleted, rows, tiles } = this.props;
+
+    if (isCompleted) {
+      return null;
+    }
 
     return (
       <div id='board' style={getStyles(cols, rows)}>
@@ -52,6 +56,8 @@ class Board extends Component {
   }
 }
 
-const mapStateToProps = state => ({ cols: state.cols, rows: state.rows, tiles: getBoard(state) });
+const mapStateToProps = state => ({
+  cols: state.cols, rows: state.rows, tiles: getBoard(state), isCompleted: state.isCompleted,
+});
 
 export default connect(mapStateToProps)(Board);

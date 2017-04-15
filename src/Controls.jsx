@@ -5,7 +5,11 @@ import { bindActionCreators } from 'redux'
 import { shuffle, updateBoardSize } from './actions';
 import './Controls.css';
 
-const Controls = ({ cols, rows, tile, shuffle, updateBoardSize }) => {
+const Controls = ({ cols, isCompleted, rows, tile, shuffle, updateBoardSize }) => {
+  if (isCompleted) {
+    return null;
+  }
+
   const incrementCols = () => updateBoardSize('cols', 1);
   const incrementRows = () => updateBoardSize('rows', 1);
   const decrementCols = () => updateBoardSize('cols', -1);
@@ -30,6 +34,7 @@ const Controls = ({ cols, rows, tile, shuffle, updateBoardSize }) => {
   );
 }
 
+const mapStateToProps = ({ isCompleted }) => ({ isCompleted });
 const mapDispatchToProps = (dispatch) => bindActionCreators({ shuffle, updateBoardSize }, dispatch);
 
-export default connect(null, mapDispatchToProps)(Controls);
+export default connect(mapStateToProps, mapDispatchToProps)(Controls);
