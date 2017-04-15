@@ -24,22 +24,28 @@ const initialState = {
   rows: DEFAULT_ROWS,
 };
 
+function updateBoardSize(state, { axis, amount }) {
+  let cols = action.axis === 'cols' ? state.cols + action.amount : state.cols;
+  let rows = action.axis === 'rows' ? state.rows + action.amount : state.rows;
+  cols = cols > 2 ? cols : state.cols;
+  rows = rows > 2 ? rows : state.rows;
+
+  return {
+    cols,
+    rows,
+    tiles: generateTiles(cols, rows),
+  }
+}
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case MOVE:
       return { ...state };
-    case BOARD_SIZE_UPDATE: {
-      let cols = action.axis === 'cols' ? state.cols + action.amount : state.cols;
-      let rows = action.axis === 'rows' ? state.rows + action.amount : state.rows;
-      cols = cols > 2 ? cols : state.cols;
-      rows = rows > 2 ? rows : state.rows;
+    case BOARD_SIZE_UPDATE:
       return {
-       ...state,
-        cols,
-        rows,
-        tiles: generateTiles(cols, rows),
-      }
-    };
+        ...state,
+        ...updateBoardSize(state, action),
+      };
     default:
       return state;
   }
