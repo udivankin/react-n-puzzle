@@ -6,7 +6,10 @@ import App from './App';
 import './index.css';
 import Reducer from './reducer'
 
-const store = createStore(Reducer);
+const store = createStore(
+  Reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+);
 
 ReactDOM.render(
   <Provider store={store}><App /></Provider>,
