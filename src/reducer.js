@@ -1,5 +1,5 @@
 import { MOVE, BOARD_SIZE_UPDATE } from './actions.js';
-import { DEFAULT_COLS, DEFAULT_ROWS, generateTiles } from './helpers.js';
+import { DEFAULT_COLS, DEFAULT_ROWS, generateTiles, move } from './helpers.js';
 
 const initialState = {
   /**
@@ -25,8 +25,8 @@ const initialState = {
 };
 
 function updateBoardSize(state, { axis, amount }) {
-  let cols = action.axis === 'cols' ? state.cols + action.amount : state.cols;
-  let rows = action.axis === 'rows' ? state.rows + action.amount : state.rows;
+  let cols = axis === 'cols' ? state.cols + amount : state.cols;
+  let rows = axis === 'rows' ? state.rows + amount : state.rows;
   cols = cols > 2 ? cols : state.cols;
   rows = rows > 2 ? rows : state.rows;
 
@@ -40,7 +40,10 @@ function updateBoardSize(state, { axis, amount }) {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case MOVE:
-      return { ...state };
+      return {
+        ...state,
+        tiles: move(state, action.tile),
+      };
     case BOARD_SIZE_UPDATE:
       return {
         ...state,

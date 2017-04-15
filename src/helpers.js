@@ -20,9 +20,9 @@ function sort(tiles) {
 }
 
 function getEmptyTile({ tiles }) {
-  for (let tileIndex of tiles) {
-    if (tiles[tileIndex] === 'empty') {
-      return tiles[tileIndex];
+  for (let [id, tile] of tiles) {
+    if (id === 'empty') {
+      return tile;
     }
   }
 }
@@ -30,33 +30,41 @@ function getEmptyTile({ tiles }) {
 function getSiblings(state, targetTile) {
   const { cols, rows } = state;
   const { x, y } = targetTile;
-  const result = [];
 
-  [{ x: x - 1, y }, { x, y: y - 1 }, { x: x + 1, y }, { x: x, y: y + 1 }].forEach(
-    (sibling) => {
-      if (sibling.x >= 0 || sibling.x < cols || sibling.y >= 0 || sibling.y < rows) {
-        result.push(sibling);
-      }
-    }
+  return [{ x: x - 1, y }, { x, y: y - 1 }, { x: x + 1, y }, { x: x, y: y + 1 }].reduce(
+    (result, value) => {
+      return (value.x >= 0 && value.x < cols && value.y >= 0 && value.y < rows)
+        ? [...result, value]
+        : result;
+    },
+    []
   );
-
-  return result;
 }
 
 function getTileAt({ tiles }, x, y) {
-  for (let tileIndex of tiles) {
-    if (tiles[tileIndex].x === x && tiles[tileIndex].y === y) {
-      return tiles[tileIndex];
+  for (let [id, tile] of tiles) {
+    if (tile.x === x && tile.y === y) {
+      return tile;
     }
   }
 }
 
-function getCanExchange(state, targetTile) {
-  const emptyTyle = getEmptyTile(state);
+function getCanExchange(siblings, emptyTile) {
+  return siblings.some(tile => tile.x === emptyTile.x && tile.y === emptyTile.y);
+}
 
-  if (targetTile) {
+export function move(state, targetTile) {
+  const emptyTile = getEmptyTile(state);
+  const siblings = getSiblings(state, targetTile);
 
+  if (getCanExchange(siblings, emptyTile)) {
+    const result = new Map(state.tiles);
+    result.set('empty', targetTile);
+    result.set(targetTile.id, emptyTile);
+    return result;
   }
+
+  return state.tiles;
 }
 
 export function generateTiles(cols = DEFAULT_COLS, rows = DEFAULT_ROWS) {
