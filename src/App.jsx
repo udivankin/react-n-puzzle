@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Helmet } from 'react-helmet';
+import { connect } from 'react-redux';
 
 import Board from './Board';
 import Congrats from './Congrats';
@@ -9,6 +11,9 @@ class App extends Component {
   render() {
     return (
       <div id='main'>
+        <Helmet>
+          <title>{`${this.props.tileCount}-puzzle`}</title>
+        </Helmet>
         <Board />
         <Controls />
         <Congrats />
@@ -17,4 +22,6 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = ({ rows, cols }) => ({ tileCount: rows * cols - 1 });
+
+export default connect(mapStateToProps)(App);
