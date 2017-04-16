@@ -1,51 +1,61 @@
 #controls {
-    display: flex;
-    line-height: 24px;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
+  line-height: 24px;
 }
 
 .aside-controls {
-    bottom: 0;
-    padding-right: 10px;
-    position: absolute;
-    right: 0;
-    z-index: 1;
+  bottom: 0;
+  padding-right: 10px;
+  position: absolute;
+  right: 0;
+  z-index: 1;
 }
 
 .btn {
-    border: 0;
-    border-radius: 50%;
-    cursor: pointer;
-    display: block;
-    overflow: hidden;
-    outline: 0;
-    padding: 0;
-    text-align: center;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  display: block;
+  overflow: hidden;
+  outline: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.btn:hover {
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.2), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
 }
 
 .btn-outline {
-    border: 1px solid #fff;
-    display: inline-block;
-    height: 24px;
-    line-height: 22px;
-    margin-left: 12px;
-    width: 24px;
+  background: rgba(255,255,255,.1);
+  border: 1px solid #fff;
+  color: #fff;
+  display: inline-block;
+  height: 24px;
+  line-height: 22px;
+  margin-left: 12px;
+  width: 24px;
+}
+
+.btn-outline:hover {
+  background: rgba(255,255,255,.2);
 }
 
 .btn-outline:nth-child(2) {
-    margin-right: 48px;
+  margin-right: 48px;
 }
 
 .btn-shuffle {
-    cursor: pointer;
-    background: #44b39b url('./shuffle.svg') no-repeat center center;
-    color: #FFF;
-    height: 36px;
-    line-height: 36px;
-    transition: .3s;
-    width: 36px;
+  background: #1db796 url('./shuffle.svg') no-repeat center center;
+  color: #FFF;
+  cursor: pointer;
+  height: 36px;
+  line-height: 36px;
+  transition: .3s;
+  width: 36px;
 }
 
 .btn-shuffle:hover {
-    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.2), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+  background-color: #4ddebf;
 }

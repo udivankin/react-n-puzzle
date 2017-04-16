@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 
 import { move } from './actions';
+import './Tile.css';
 
 const getStyles = (cols, rows, tile) => {
   const width = 100 / cols;
