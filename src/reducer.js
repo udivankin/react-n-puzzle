@@ -1,4 +1,4 @@
-import { BOARD_SIZE_UPDATE, MOVE, RESET, SHUFFLE } from './actions.js';
+import { MOVE, RESET, RESIZE, SHUFFLE } from './actions.js';
 import {
   DEFAULT_COLS, DEFAULT_ROWS, generateTiles, move, shuffleBoard, getIsComlete,
 } from './helpers.js';
@@ -48,12 +48,6 @@ function updateBoardSize(state, { axis, amount }) {
 
 const reducer = (state = shuffleBoard(initialState), action) => {
   switch (action.type) {
-    case BOARD_SIZE_UPDATE:
-      return {
-        ...state,
-        ...updateBoardSize(state, action),
-        isCompleted: false,
-      };
     case MOVE: {
       const nextState = {
         ...state,
@@ -68,6 +62,12 @@ const reducer = (state = shuffleBoard(initialState), action) => {
     case RESET:
       return {
         ...shuffleBoard(initialState),
+        isCompleted: false,
+      };
+    case RESIZE:
+      return {
+        ...state,
+        ...updateBoardSize(state, action),
         isCompleted: false,
       };
     case SHUFFLE:

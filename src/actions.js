@@ -1,7 +1,7 @@
 export const MOVE = 'puzzle/MOVE';
 export const RESET = 'puzzle/RESET';
 export const SHUFFLE = 'puzzle/SHUFFLE';
-export const BOARD_SIZE_UPDATE = 'puzzle/BOARD_SIZE_UPDATE';
+export const RESIZE = 'puzzle/RESIZE';
 
 export function move(tile) {
   return {
@@ -24,7 +24,7 @@ export function shuffle() {
 
 export function updateBoardSize(axis, amount) {
   return {
-    type: BOARD_SIZE_UPDATE,
+    type: RESIZE,
     axis,
     amount,
   };
