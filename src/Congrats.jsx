@@ -1,41 +1,35 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
+import React, { useEffect, useRef } from 'react';
+import { useRecoilState } from 'recoil';
 
-import { reset } from './actions';
-import './Congrats.css';
+import { clone, shuffleBoard } from './helpers';
+import { tilesState } from './state';
 import Audio from './win.ogg';
 
-class Congrats extends Component {
-  componentDidUpdate() {
-    if (this.audioRef && this.props.isCompleted) {
-      this.audioRef.play();
-    }
-  }
+import './Congrats.css';
 
-  render() {
-    const { isCompleted, reset } = this.props;
+const Congrats = () => {
+  const audioRef = useRef();
+  useEffect(() => { audioRef.current.play(); }, []);
+  const [tiles, setTiles] = useRecoilState(tilesState);
 
-    if (!isCompleted) {
-      return null;
-    }
-
-    return (
-      <div id="congrats">
-        <div className="star" />
-        <div className="header">
-          You won!
-        </div>
-        <audio src={Audio} ref={(c) => {this.audioRef = c;}} />
-        <div className="controls">
-          <a href="#" onClick={reset}>Play again!</a>
-        </div>
+  return (
+    <div className="congrats">
+      <div className="congrats-star" />
+      <div className="congrats-header">
+        You did it!
       </div>
-    );
-  }
+      <audio src={Audio} ref={audioRef} />
+      <div className="congrats-controls">
+        <a
+          href="#"
+          alt="Play again!"
+          onClick={() => setTiles(shuffleBoard(clone(tiles)))}
+        >
+          Play again!
+        </a>
+      </div>
+    </div>
+  );
 }
 
-const mapStateToProps = ({ isCompleted }) => ({ isCompleted });
-const mapDispatchToProps = (dispatch) => bindActionCreators({ reset }, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Congrats);
+export default Congrats;

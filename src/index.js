@@ -1,17 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { RecoilRoot } from 'recoil';
 import App from './App';
-import './index.css';
-import Reducer from './reducer'
-
-const store = createStore(
-  Reducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-);
 
 ReactDOM.render(
-  <Provider store={store}><App /></Provider>,
+  <RecoilRoot>
+    <App /> 
+  </RecoilRoot>,
   document.getElementById('root')
 );

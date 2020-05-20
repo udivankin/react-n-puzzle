@@ -1,27 +1,27 @@
-#congrats {
+.congrats {
   overflow: hidden;
   text-align: center;
 }
 
-#congrats .star {
+.congrats-star {
   background: url('./star.svg') no-repeat center center;
-  background-size: 40vh;
-  height: 40vh;
-  width: 50vw;
+  background-size: contain;
+  height: 60vh;
+  width: 60vw;
   margin: 0 auto;
 }
 
-#congrats .header {
+.congrats-header {
   font-size: 5vw;    
   margin-top: 3vh;
   text-align: center;
 }
 
-#congrats .controls {
+.congrats-controls {
   margin-top: 3vh;
 }
 
-#congrats a {
+.congrats a {
   color: white;
   font-size: 2vw; 
 }

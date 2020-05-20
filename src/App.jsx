@@ -1,27 +1,29 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet';
-import { connect } from 'react-redux';
+import { useRecoilState } from 'recoil';
 
 import Board from './Board';
 import Congrats from './Congrats';
 import Controls from './Controls';
+import { isCompleteState, sizeState } from './state';
+
 import './App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div id='main'>
-        <Helmet>
-          <title>{`${this.props.tileCount}-puzzle`}</title>
-        </Helmet>
-        <Board />
-        <Controls />
-        <Congrats />
-      </div>
-    );
-  }
+const App = () => {
+  const [isComplete] = useRecoilState(isCompleteState);
+  const [size] = useRecoilState(sizeState);
+
+  return (
+    <main>
+      <Helmet>
+        <title>
+          {`${size.chips}-puzzle`}
+        </title>
+      </Helmet>
+      {!isComplete && <Controls />}
+      {isComplete ? <Congrats /> : <Board />}
+    </main>
+  );
 }
 
-const mapStateToProps = ({ rows, cols }) => ({ tileCount: rows * cols - 1 });
-
-export default connect(mapStateToProps)(App);
+export default App;

@@ -1,5 +1,32 @@
-#board {
-  height: 80%;
-  position: relative;
-  width: 80%;
+.board-wrapper {
+  height: 100%;
+  width: 100%;
+  padding: 8rem 4rem 4rem;
+}
+
+.board .tile rect {
+  fill: #3F51B5;
+}
+
+.board .tile text {
+  fill: #cfd5f7;
+  font-size: .75rem;
+}
+
+.board .tile, .board {
+  transition: all .2s cubic-bezier(1, 0, 0, 1)
+}
+
+.board .tile:hover {
+  cursor: pointer;
+}
+
+.board .tile:hover rect {
+  fill: #475bca;
+}
+
+@media all and (max-width: 768px) {
+  .board-wrapper {
+    padding: 4rem 2rem 2rem;
+  }
 }

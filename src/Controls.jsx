@@ -1,40 +1,79 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
+import React, { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 
-import { shuffle, updateBoardSize } from './actions';
+import { clone, generateTiles, find, move, shuffleBoard } from './helpers';
+import { sizeState, tilesState } from './state';
+
 import './Controls.css';
 
-const Controls = ({ cols, isCompleted, rows, tile, shuffle, updateBoardSize }) => {
-  if (isCompleted) {
-    return null;
-  }
+const SizeButton = ({ rows = false, cols = false, direction }) => {
+  const [_, setTiles] = useRecoilState(tilesState);
+  const [size] = useRecoilState(sizeState);
 
-  const incrementCols = () => updateBoardSize('cols', 1);
-  const incrementRows = () => updateBoardSize('rows', 1);
-  const decrementCols = () => updateBoardSize('cols', -1);
-  const decrementRows = () => updateBoardSize('rows', -1);
+  const clickHandler = () => {
+    const nextRows = Math.max(2, size.rows + (rows ? direction : 0));
+    const nextCols = Math.max(2, size.cols + (cols ? direction : 0));
+    setTiles(shuffleBoard(generateTiles(nextRows, nextCols)));
+  };
 
   return (
-    <div id="controls">
+    <button
+      className="btn btn-outline"
+      title={`${direction > 0 ? 'More' : 'Less'} ${rows ? 'rows' : 'columns'}`}
+      onClick={clickHandler}
+    >
+      {direction > 0 ? '+' : '-'}
+    </button>
+  );
+};
+
+const Controls = () => {
+  const [tiles, setTiles] = useRecoilState(tilesState);
+  const [size] = useRecoilState(sizeState);
+
+  const handleKeyDown = ({ keyCode }) => {
+    const [row, col] = find(tiles, 0);
+    let tile;
+
+    if (keyCode === 37 && (col < size.cols - 1)) { // LEFT
+      tile = tiles[row][col + 1];
+    } else if (keyCode === 38 && (row < size.rows - 1)) { // UP
+      tile = tiles[row + 1][col];
+    } else if (keyCode === 39 && col > 0) { // RIGHT
+      tile = tiles[row][col - 1];
+    } else if (keyCode === 40 && row > 0) { // DOWN
+      tile = tiles[row - 1][col];
+    }
+
+    if (tile) setTiles(move(clone(tiles), tile));
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown);
+    return () => { document.removeEventListener('keydown', handleKeyDown); }
+  });
+    
+  return (
+    <div className="controls">
       <div className="rows-controls">
         Rows
-        <button className="btn btn-outline" title="Less rows" onClick={decrementRows}>-</button>
-        <button className="btn btn-outline" title="More rows" onClick={incrementRows}>+</button>
+        <SizeButton rows direction={-1} />
+        <SizeButton rows direction={+1} />
       </div>
       <div className="cols-controls">
         Columns
-        <button className="btn btn-outline" title="Less columns" onClick={decrementCols}>-</button>
-        <button className="btn btn-outline" title="More columns" onClick={incrementCols}>+</button>
+        <SizeButton cols direction={-1} />
+        <SizeButton cols direction={+1} />
       </div>
       <div className="aside-controls">
-        <button className="btn btn-shuffle" title="Shuffle" onClick={shuffle}></button>
+        <button
+          className="btn btn-shuffle"
+          title="Shuffle"
+          onClick={() => setTiles(shuffleBoard(clone(tiles)))}
+        ></button>
       </div>
     </div>
   );
 }
 
-const mapStateToProps = ({ isCompleted }) => ({ isCompleted });
-const mapDispatchToProps = (dispatch) => bindActionCreators({ shuffle, updateBoardSize }, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Controls);
+export default Controls;

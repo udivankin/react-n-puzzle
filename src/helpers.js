@@ -1,115 +1,72 @@
-import shuffle from 'lodash.shuffle';
+export function clone(arr) {
+  return JSON.parse(JSON.stringify(arr));
+}
 
-const completedBoardLayouts = {};
-export const DEFAULT_COLS = 4;
-export const DEFAULT_ROWS = 4;
+export function random(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
 
-function getEmptyTile({ tiles }) {
-  for (let id in tiles) {
-    if (id === 'empty') {
-      return tiles[id];
-    }
+export function find(arr, n) {
+  const row = arr.findIndex(row => row.indexOf(n) > -1);
+  const col = arr[row].indexOf(n);
+
+  return [row, col];
+}
+
+export function getSiblings(tiles, n) {
+  const siblings = [];
+  const [row, col] = find(tiles, n);
+  if (row > 0) siblings.push(tiles[row - 1][col]);
+  if (row < tiles.length - 1) siblings.push(tiles[row + 1][col]);
+  if (col > 0) siblings.push(tiles[row][col - 1]);
+  if (col < tiles[0].length - 1) siblings.push(tiles[row][col + 1]);
+  return siblings;
+}
+
+export function move(tiles, targetTile) {
+  const [emptyTileRow, emptyTileCol] = find(tiles, 0);
+  const [targetTileRow, targetTileCol] = find(tiles, targetTile);
+
+  if (Math.abs(emptyTileRow - targetTileRow) + Math.abs(emptyTileCol - targetTileCol) === 1) {
+    tiles[emptyTileRow][emptyTileCol] = targetTile;
+    tiles[targetTileRow][targetTileCol] = 0;
   }
-}
-
-function getTileAt({ tiles }, x, y) {
-  for (let id in tiles) {
-    if (tiles[id].x === x && tiles[id].y === y) {
-      return tiles[id];
-    }
-  }
-}
-
-function getSiblings(state, targetTile) {
-  const { cols, rows } = state;
-  const { x, y } = targetTile;
-
-  return [{ x: x - 1, y }, { x, y: y - 1 }, { x: x + 1, y }, { x: x, y: y + 1 }].reduce(
-    (result, value) => {
-      return (value.x >= 0 && value.x < cols && value.y >= 0 && value.y < rows)
-        ? [...result, getTileAt(state, value.x, value.y)]
-        : result;
-    },
-    []
-  );
-}
-
-function getCanExchange(siblings, emptyTile) {
-  return siblings.some(tile => tile.x === emptyTile.x && tile.y === emptyTile.y);
-}
-
-export function move(state, targetTile) {
-  const emptyTile = getEmptyTile(state);
-  const siblings = getSiblings(state, targetTile);
-
-  if (getCanExchange(siblings, emptyTile)) {
-    return {
-      ...state.tiles,
-      empty: { ...targetTile, id: 'empty' },
-      [targetTile.id]: { ...emptyTile, id: targetTile.id },
-    };
-  }
-
-  return state.tiles;
-}
-
-export function randomMove(state) {
-  const emptyTile = getEmptyTile(state);
-  const siblings = getSiblings(state, emptyTile);
-  const targetTile = shuffle(siblings).pop();
-  let result;
-
-  Object.values(state.tiles).forEach((tile) => {
-    if (tile.x === targetTile.x && tile.y === targetTile.y) {
-      result = move(state, targetTile);
-    }
-  });
-
-  return result;
-}
-
-export function generateTiles(cols = DEFAULT_COLS, rows = DEFAULT_ROWS) {
-  if (`${cols}_${rows}` in completedBoardLayouts) {
-    return completedBoardLayouts[`${cols}_${rows}`];
-  }
-
-  const tiles = {};
-  
-  for (let y = 0; y < rows; y++) {
-    for (let x = 0; x < cols; x++) {
-      const id = Object.keys(tiles).length + 1;
-      if (x * y < (cols - 1) * (rows - 1)) { // skip last item
-        tiles[id] = { id, x, y };
-      } else {
-        tiles.empty = { id: 'empty', x, y };
-      }
-    }
-  }
-
-  completedBoardLayouts[`${cols}_${rows}`] = tiles;
 
   return tiles;
 }
 
-export function shuffleBoard(state) {
-  let nextState = { ...state };
+export function randomMove(tiles) {
+  return move(tiles, random(getSiblings(tiles, 0)));
+}
 
-  for (let i = 0; i < Math.pow(nextState.rows * nextState.cols, 2); i++) {
-    nextState = { ...state, tiles: randomMove(nextState) };
+export function generateTiles(rows, cols) {
+  const tiles = [];
+  
+  for (let y = 0; y < rows; y++) {
+    tiles.push(Array.from({ length: cols }, (v, k) => k + cols * y + 1));
   }
 
-  return nextState;
+  tiles[rows-1][cols-1] = 0;
+
+  return tiles;
 }
 
-export function getBoard(state) {
-  return Object.values(state.tiles);
+export function shuffleBoard(tiles) {
+  for (let i = 0; i < tiles.length * tiles[0].length ** 2; i++) {
+    randomMove(tiles);
+  }
+
+  return tiles;
 }
 
-export function getIsComlete(state) {
-  const { cols, rows } = state;
-  const completedBoard = completedBoardLayouts[`${cols}_${rows}`];
+export function getIsComlete(tiles, rows = tiles.length, cols = tiles[0].length) {
+  for (let y = 0, i = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
+      i++;
+      if (tiles[y][x] === 0 && i === rows * cols) return true;
+      if (tiles[y][x] !== i) return false;
+    }
+  }
 
-  return Object.values(state.tiles).every((tile) => (
-    tile.x === completedBoard[tile.id].x && tile.y === completedBoard[tile.id].y
-  ));
+  return true;
 }
