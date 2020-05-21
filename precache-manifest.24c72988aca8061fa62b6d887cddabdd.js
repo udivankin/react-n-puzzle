@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "7cb56523ff2b11c862e2c8da1e767c85",
+    "revision": "41243ea05f81f7fd79a33c49b55a36f3",
     "url": "/react-n-puzzle/index.html"
   },
   {
-    "revision": "7d764f4ee69139733490",
-    "url": "/react-n-puzzle/static/css/main.6e969065.chunk.css"
+    "revision": "61779f8ad8ec119e53e3",
+    "url": "/react-n-puzzle/static/css/main.654912ca.chunk.css"
   },
   {
     "revision": "2096a3a8576258570ffa",
@@ -16,7 +16,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/react-n-puzzle/static/js/2.99ffb063.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "7d764f4ee69139733490",
+    "revision": "61779f8ad8ec119e53e3",
     "url": "/react-n-puzzle/static/js/main.8264dae5.chunk.js"
   },
   {

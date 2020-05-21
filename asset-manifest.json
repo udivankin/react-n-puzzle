@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/react-n-puzzle/static/css/main.6e969065.chunk.css",
+    "main.css": "/react-n-puzzle/static/css/main.654912ca.chunk.css",
     "main.js": "/react-n-puzzle/static/js/main.8264dae5.chunk.js",
     "main.js.map": "/react-n-puzzle/static/js/main.8264dae5.chunk.js.map",
     "runtime-main.js": "/react-n-puzzle/static/js/runtime-main.cdb65590.js",
@@ -8,9 +8,9 @@
     "static/js/2.99ffb063.chunk.js": "/react-n-puzzle/static/js/2.99ffb063.chunk.js",
     "static/js/2.99ffb063.chunk.js.map": "/react-n-puzzle/static/js/2.99ffb063.chunk.js.map",
     "index.html": "/react-n-puzzle/index.html",
-    "precache-manifest.52d5b8965f0a2427f2ee45ff8564fb78.js": "/react-n-puzzle/precache-manifest.52d5b8965f0a2427f2ee45ff8564fb78.js",
+    "precache-manifest.24c72988aca8061fa62b6d887cddabdd.js": "/react-n-puzzle/precache-manifest.24c72988aca8061fa62b6d887cddabdd.js",
     "service-worker.js": "/react-n-puzzle/service-worker.js",
-    "static/css/main.6e969065.chunk.css.map": "/react-n-puzzle/static/css/main.6e969065.chunk.css.map",
+    "static/css/main.654912ca.chunk.css.map": "/react-n-puzzle/static/css/main.654912ca.chunk.css.map",
     "static/js/2.99ffb063.chunk.js.LICENSE.txt": "/react-n-puzzle/static/js/2.99ffb063.chunk.js.LICENSE.txt",
     "static/media/Congrats.css": "/react-n-puzzle/static/media/star.86b94556.svg",
     "static/media/win.ogg": "/react-n-puzzle/static/media/win.71069831.ogg"
@@ -18,7 +18,7 @@
   "entrypoints": [
     "static/js/runtime-main.cdb65590.js",
     "static/js/2.99ffb063.chunk.js",
-    "static/css/main.6e969065.chunk.css",
+    "static/css/main.654912ca.chunk.css",
     "static/js/main.8264dae5.chunk.js"
   ]
 }
