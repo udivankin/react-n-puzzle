@@ -1,25 +1,24 @@
 {
   "files": {
-    "main.css": "/react-n-puzzle/static/css/main.07326fe4.chunk.css",
-    "main.js": "/react-n-puzzle/static/js/main.6ec4f5ac.chunk.js",
-    "main.js.map": "/react-n-puzzle/static/js/main.6ec4f5ac.chunk.js.map",
+    "main.css": "/react-n-puzzle/static/css/main.6e969065.chunk.css",
+    "main.js": "/react-n-puzzle/static/js/main.93531dba.chunk.js",
+    "main.js.map": "/react-n-puzzle/static/js/main.93531dba.chunk.js.map",
     "runtime-main.js": "/react-n-puzzle/static/js/runtime-main.cdb65590.js",
     "runtime-main.js.map": "/react-n-puzzle/static/js/runtime-main.cdb65590.js.map",
-    "static/js/2.5d1ad0ee.chunk.js": "/react-n-puzzle/static/js/2.5d1ad0ee.chunk.js",
-    "static/js/2.5d1ad0ee.chunk.js.map": "/react-n-puzzle/static/js/2.5d1ad0ee.chunk.js.map",
+    "static/js/2.99ffb063.chunk.js": "/react-n-puzzle/static/js/2.99ffb063.chunk.js",
+    "static/js/2.99ffb063.chunk.js.map": "/react-n-puzzle/static/js/2.99ffb063.chunk.js.map",
     "index.html": "/react-n-puzzle/index.html",
-    "precache-manifest.8831da4012665ebe1e2885912d988121.js": "/react-n-puzzle/precache-manifest.8831da4012665ebe1e2885912d988121.js",
+    "precache-manifest.c2f0c0f4016adff64e87c29772925e2a.js": "/react-n-puzzle/precache-manifest.c2f0c0f4016adff64e87c29772925e2a.js",
     "service-worker.js": "/react-n-puzzle/service-worker.js",
-    "static/css/main.07326fe4.chunk.css.map": "/react-n-puzzle/static/css/main.07326fe4.chunk.css.map",
-    "static/js/2.5d1ad0ee.chunk.js.LICENSE.txt": "/react-n-puzzle/static/js/2.5d1ad0ee.chunk.js.LICENSE.txt",
-    "static/media/Controls.css": "/react-n-puzzle/static/media/shuffle.cc945de3.svg",
+    "static/css/main.6e969065.chunk.css.map": "/react-n-puzzle/static/css/main.6e969065.chunk.css.map",
+    "static/js/2.99ffb063.chunk.js.LICENSE.txt": "/react-n-puzzle/static/js/2.99ffb063.chunk.js.LICENSE.txt",
     "static/media/Congrats.css": "/react-n-puzzle/static/media/star.86b94556.svg",
     "static/media/win.ogg": "/react-n-puzzle/static/media/win.71069831.ogg"
   },
   "entrypoints": [
     "static/js/runtime-main.cdb65590.js",
-    "static/js/2.5d1ad0ee.chunk.js",
-    "static/css/main.07326fe4.chunk.css",
-    "static/js/main.6ec4f5ac.chunk.js"
+    "static/js/2.99ffb063.chunk.js",
+    "static/css/main.6e969065.chunk.css",
+    "static/js/main.93531dba.chunk.js"
   ]
 }
