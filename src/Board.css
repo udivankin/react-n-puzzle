@@ -1,7 +1,6 @@
 .board-wrapper {
-  height: 100%;
-  width: 100%;
-  padding: 8rem 4rem 4rem;
+  height: calc(100% - 4rem);
+  padding: 2rem;
 }
 
 .board .tile rect {
@@ -10,23 +9,31 @@
 
 .board .tile text {
   fill: #cfd5f7;
-  font-size: .75rem;
 }
 
 .board .tile, .board {
   transition: all .2s cubic-bezier(1, 0, 0, 1)
 }
 
-.board .tile:hover {
-  cursor: pointer;
-}
-
-.board .tile:hover rect {
-  fill: #475bca;
-}
 
 @media all and (max-width: 768px) {
   .board-wrapper {
-    padding: 4rem 2rem 2rem;
+    padding: 1rem;
   }
+}
+
+@media (pointer: fine) {
+  .board .tile:hover {
+    cursor: pointer;
+  }
+  
+  .board .tile:hover rect {
+    fill: #475bca;
+  }  
+}
+
+@media (pointer: coarse) {
+  .board .tile:active rect {
+    fill: #475bca;
+  } 
 }

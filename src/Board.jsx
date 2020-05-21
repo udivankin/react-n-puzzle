@@ -19,7 +19,6 @@ const Board = () => {
         height="100%"
         viewBox={`0 0 ${size.cols * 24} ${size.rows * 24}`}
         xmlns="http://www.w3.org/2000/svg"
-        xmlnsXlink="http://www.w3.org/1999/xlink"
       >
         {sortedTiles.map((pos, tileName) => {
           if (tileName === 0) return null;
@@ -28,7 +27,7 @@ const Board = () => {
               className="tile"
               onClick={() => setTiles(move(clone(tiles), tileName))}
               key={tileName} 
-              transform={`translate(${pos[1] * 24 + 1}, ${pos[0] * 24 + 1})`}
+              transform={`translate(${pos[1] * 24}, ${pos[0] * 24})`}
             >
               <rect
                 height="22"
@@ -38,9 +37,8 @@ const Board = () => {
                 y="1"
               />
               <text
-                x={12}
-                y={12}
-                alignmentBaseline="central"
+                fontSize="12"
+                transform={`translate(12, 16)`}
                 textAnchor="middle"
               >
                 {tileName}

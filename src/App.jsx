@@ -14,7 +14,7 @@ const App = () => {
   const [size] = useRecoilState(sizeState);
 
   return (
-    <main>
+    <>
       <Helmet>
         <title>
           {`${size.chips}-puzzle`}
@@ -22,7 +22,7 @@ const App = () => {
       </Helmet>
       {!isComplete && <Controls />}
       {isComplete ? <Congrats /> : <Board />}
-    </main>
+    </>
   );
 }
 

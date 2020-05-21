@@ -1,20 +1,19 @@
 .controls {
   display: flex;
-  padding-top: 1rem;
-  position: absolute;
-  top: 0;
-  opacity: .7;
-  width: 100%;
+  flex: 0 0 auto;
   font-size: 1.125rem;
+  margin-top: 1rem;
 }
 
 .controls > div {
   padding: 0 1rem;
+  display: inline-flex;
+  align-items: center;
 }
 
 .controls .rows-controls {
   flex: 1 0 auto;
-  text-align: right;
+  justify-content: flex-end;
   padding-left: 4rem;
 }
 
@@ -27,53 +26,23 @@
 }
 
 .btn {
-  border: 0;
-  border-radius: 50%;
   cursor: pointer;
-  display: inline-block;
-  overflow: hidden;
-  outline: 0;
-  padding: 0;
-  text-align: center;
-  font-size: 1.125rem;
   margin-left: 1rem;
   height: 3rem;
-  line-height: 3rem;
   width: 3rem;
+  transition: all .2s;
+  opacity: .6;
 }
 
 .btn:hover {
-  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.2), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
-}
-
-.btn-outline {
-  background: rgba(255,255,255,.1);
-  border: 1px solid #fff;
-  color: #fff;
-}
-
-.btn-outline:hover {
-  background: rgba(255,255,255,.2);
-}
-
-.btn-shuffle {
-  background: #1db796 url('./shuffle.svg') no-repeat center center;
-  background-size: 80%;
-  color: #FFF;
-  transition: .3s;
-}
-
-.btn-shuffle:hover {
-  background-color: #4ddebf;
+  opacity: 1;
 }
 
 @media all and (max-width: 768px) {
   .btn {
     height: 1.5rem;
-    line-height: 1.5rem;
     width: 1.5rem;
     margin-left: .5rem;
-    font-size: 1rem;
   }
 
   .controls {
