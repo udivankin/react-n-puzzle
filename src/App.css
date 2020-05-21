@@ -9,6 +9,7 @@
 * {
   box-sizing: border-box;
   user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html {
@@ -32,4 +33,5 @@ main {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  overflow: hidden;
 }
