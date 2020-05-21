@@ -21,7 +21,7 @@ const Congrats = () => {
       <audio src={Audio} ref={audioRef} />
       <div className="congrats-controls">
         <a
-          tabIndex="0"
+          href="#"
           alt="Play again!"
           onClick={() => setTiles(shuffleBoard(clone(tiles)))}
         >
