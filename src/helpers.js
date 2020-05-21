@@ -56,7 +56,7 @@ export function shuffleBoard(tiles) {
     randomMove(tiles);
   }
 
-  return tiles;
+  return getIsComlete(tiles) ? randomMove(tiles) : tiles;
 }
 
 export function getIsComlete(tiles, rows = tiles.length, cols = tiles[0].length) {
