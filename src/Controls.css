@@ -1,8 +1,8 @@
 .controls {
   display: flex;
-  flex: 0 0 auto;
+  flex: 0 0 4rem;
   font-size: 1.125rem;
-  margin-top: 1rem;
+  padding-top: 1rem;
 }
 
 .controls > div {
@@ -33,8 +33,6 @@
   transition: all .2s;
   opacity: .6;
 }
-
-
 
 @media all and (max-width: 768px) {
   .btn {

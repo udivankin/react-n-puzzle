@@ -8,6 +8,14 @@ export const tilesState = atom({
   default: shuffleBoard(generateTiles(4, 4)),
 });
 
+export const gameState = atom({
+  key: 'gameState',
+  default: {
+    moves: 0,
+    gameId: Symbol('gameState'),
+  },
+});
+
 export const isCompleteState = selector({
   key: 'isCompleteState',
   get: ({ get }) => getIsComlete(get(tilesState)),

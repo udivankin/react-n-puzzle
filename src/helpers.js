@@ -2,6 +2,10 @@ export function clone(arr) {
   return JSON.parse(JSON.stringify(arr));
 }
 
+export function sequence(a, b) {
+  return Array.from({ length: Math.abs(a - b) }, (v, k) => a + (k * (a > b ? -1 : 1)));
+}
+
 export function random(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
@@ -13,30 +17,37 @@ export function find(arr, n) {
   return [row, col];
 }
 
-export function getSiblings(tiles, n) {
-  const siblings = [];
-  const [row, col] = find(tiles, n);
-  if (row > 0) siblings.push(tiles[row - 1][col]);
-  if (row < tiles.length - 1) siblings.push(tiles[row + 1][col]);
-  if (col > 0) siblings.push(tiles[row][col - 1]);
-  if (col < tiles[0].length - 1) siblings.push(tiles[row][col + 1]);
-  return siblings;
-}
-
 export function move(tiles, targetTile) {
   const [emptyTileRow, emptyTileCol] = find(tiles, 0);
   const [targetTileRow, targetTileCol] = find(tiles, targetTile);
+  let moves = 0;
 
-  if (Math.abs(emptyTileRow - targetTileRow) + Math.abs(emptyTileCol - targetTileCol) === 1) {
-    tiles[emptyTileRow][emptyTileCol] = targetTile;
-    tiles[targetTileRow][targetTileCol] = 0;
+  if (emptyTileRow !== targetTileRow && emptyTileCol !== targetTileCol) return [tiles, moves];
+
+  if (emptyTileRow === targetTileRow) {
+    const direction = emptyTileCol < targetTileCol ? 1 : -1;
+    sequence(emptyTileCol, targetTileCol).forEach((col) => {
+      [tiles[emptyTileRow][col], tiles[emptyTileRow][col + direction]] = [tiles[emptyTileRow][col + direction], tiles[emptyTileRow][col]];
+      moves += 1;
+    });
+  } else {
+    const direction = emptyTileRow < targetTileRow ? 1 : -1;
+    sequence(emptyTileRow, targetTileRow).forEach((row) => {
+      [tiles[row][emptyTileCol], tiles[row + direction][emptyTileCol]] = [tiles[row + direction][emptyTileCol], tiles[row][emptyTileCol]];
+      moves += 1;
+    });
   }
 
-  return tiles;
+  return [tiles, moves];
 }
 
-export function randomMove(tiles) {
-  return move(tiles, random(getSiblings(tiles, 0)));
+export function randomMove(tiles, direction = Math.round(Math.random())) {
+  const [emptyTileRow, emptyTileCol] = find(tiles, 0);
+  let randomTile = direction === 0
+    ? random(tiles[emptyTileRow].filter(n => n !== 0))
+    : random(tiles.map((row) => row[emptyTileCol]).filter(Boolean));
+
+  return move(tiles, randomTile);
 }
 
 export function generateTiles(rows, cols) {
@@ -56,7 +67,7 @@ export function shuffleBoard(tiles) {
     randomMove(tiles);
   }
 
-  return getIsComlete(tiles) ? randomMove(tiles) : tiles;
+  return getIsComlete(tiles) ? randomMove(tiles)[0] : tiles;
 }
 
 export function getIsComlete(tiles, rows = tiles.length, cols = tiles[0].length) {
@@ -69,4 +80,11 @@ export function getIsComlete(tiles, rows = tiles.length, cols = tiles[0].length)
   }
 
   return true;
+}
+
+export const getTime = (seconds) => {
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds - h * 3600) / 60);
+  const s = seconds % 60;
+  return [h, m, s].map(c => String(c).padStart(2, '0')).join(':');
 }

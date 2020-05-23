@@ -5,6 +5,7 @@ import { useRecoilState } from 'recoil';
 import Board from './Board';
 import Congrats from './Congrats';
 import Controls from './Controls';
+import Stats from './Stats';
 import { isCompleteState, sizeState } from './state';
 
 import './App.css';
@@ -22,6 +23,7 @@ const App = () => {
       </Helmet>
       {!isComplete && <Controls />}
       {isComplete ? <Congrats /> : <Board />}
+      {!isComplete && <Stats />}
     </>
   );
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useRecoilState } from 'recoil';
 
 import { clone, shuffleBoard } from './helpers';
-import { tilesState } from './state';
+import { gameState, tilesState } from './state';
 import Audio from './win.ogg';
 
 import './Congrats.css';
@@ -11,6 +11,12 @@ const Congrats = () => {
   const audioRef = useRef();
   useEffect(() => { audioRef.current.play(); }, []);
   const [tiles, setTiles] = useRecoilState(tilesState);
+  const [, setGame] = useRecoilState(gameState);
+
+  const handleClick = () => {
+    setTiles(shuffleBoard(clone(tiles)));
+    setGame({ moves: 0, gameId: Symbol('gameId')});
+  };
 
   return (
     <div className="congrats">
@@ -23,7 +29,7 @@ const Congrats = () => {
         <a
           href="#"
           alt="Play again!"
-          onClick={() => setTiles(shuffleBoard(clone(tiles)))}
+          onClick={handleClick}
         >
           Play again!
         </a>
