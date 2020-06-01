@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ba7e7c294215ced2a6b2f7cd85d9824f",
+    "revision": "7c28d63b33c623bc5ae7b99bb11df155",
     "url": "/react-n-puzzle/index.html"
   },
   {
-    "revision": "9643c0fdd44c950e12fb",
+    "revision": "54079078c613d7a05bc5",
     "url": "/react-n-puzzle/static/css/main.382a91d7.chunk.css"
   },
   {
-    "revision": "67f209fe1f20213789b6",
-    "url": "/react-n-puzzle/static/js/2.18308127.chunk.js"
+    "revision": "b284cd4596ed1d9154ee",
+    "url": "/react-n-puzzle/static/js/2.57c25ffe.chunk.js"
   },
   {
     "revision": "e88a3e95b5364d46e95b35ae8c0dc27d",
-    "url": "/react-n-puzzle/static/js/2.18308127.chunk.js.LICENSE.txt"
+    "url": "/react-n-puzzle/static/js/2.57c25ffe.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "9643c0fdd44c950e12fb",
-    "url": "/react-n-puzzle/static/js/main.c95804f5.chunk.js"
+    "revision": "54079078c613d7a05bc5",
+    "url": "/react-n-puzzle/static/js/main.286ba371.chunk.js"
   },
   {
     "revision": "93273f15d2b95b41d5d5",
